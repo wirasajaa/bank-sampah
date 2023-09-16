@@ -18,7 +18,7 @@
                 </li>
             </ul>
             <div class="d-flex items-center gap-2">
-                <a href="#" class="btn btn-success btn-sm">Login</a>
+                <a href="{{ route('login', []) }}" class="btn btn-success btn-sm">Login</a>
             </div>
         </div>
     </div>

@@ -11,24 +11,20 @@
                     </div>
                     <div class="card-body">
                         <form action="">
-
                             <div class="mb-3">
                                 <label for="exampleFormControlInput1" class="form-label">Trash Type</label>
                                 <input type="text" name="inputType" list="items" class="form-control" id="inputType">
                                 <datalist id="items">
-                                    <option value="Internet Explorer">
-                                    <option value="Firefox">
-                                    <option value="Chrome">
-                                    <option value="Opera">
-                                    <option value="Safari">
+                                    @foreach ($types as $item)
+                                        <option value="{{ $item->name }}">
+                                    @endforeach
                                 </datalist>
                             </div>
                             <div class="mb-3">
-                                <label for="exampleFormControlInput1" class="form-label">Quantity</label>
+                                <label for="qty" class="form-label">Quantity</label>
                                 <div class="row align-items-center">
                                     <div class="col-auto">
-                                        <input type="number" name="inputType" list="items" class="form-control"
-                                            id="inputType">
+                                        <input type="number" name="qty" class="form-control" id="qty">
                                     </div>
                                     <div class="col-auto">
                                         <h5 class="m-0">Kg x Rp. 4000-,</h5>

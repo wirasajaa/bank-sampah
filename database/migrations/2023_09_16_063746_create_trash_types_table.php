@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string("slug");
             $table->string("desc");
             $table->integer("category_id")->references("category_id")->on('categories');
-            $table->string("picture");
+            $table->string("picture")->nullable();
             $table->string("price");
             $table->timestamps();
         });

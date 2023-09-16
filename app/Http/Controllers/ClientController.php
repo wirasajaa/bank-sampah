@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\TrashType;
 use Illuminate\Http\Request;
 
 class ClientController extends Controller
@@ -14,6 +15,7 @@ class ClientController extends Controller
     public function depo()
     {
         $title = 'depo';
-        return view('client.depo_page', compact('title'));
+        $types = TrashType::get();
+        return view('client.depo_page', compact('title', 'types'));
     }
 }
