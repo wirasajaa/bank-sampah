@@ -10,32 +10,47 @@
                         </h5>
                     </div>
                     <div class="card-body">
-                        <form action="">
+                        @if ($trash->picture)
+                            <div class="d-flex justify-content-center align-items-center mb-3">
+                                <img src="{{ $trash->picture }}" alt="image-trash" style="height: 8rem">
+                            </div>
+                        @endif
+                        <form action="{{ route('depo.store', ['trash' => $trash->id]) }}" method="post">
+                            @csrf
+                            @method('post')
+                            @error('error')
+                                <div class="alert alert-danger" role="alert">{{ $message }}</div>
+                            @enderror
                             <div class="mb-3">
                                 <label for="exampleFormControlInput1" class="form-label">Trash Type</label>
-                                <input type="text" name="inputType" list="items" class="form-control" id="inputType">
-                                <datalist id="items">
-                                    @foreach ($types as $item)
-                                        <option value="{{ $item->name }}">
-                                    @endforeach
-                                </datalist>
+                                <input type="text" name="inputType" list="items" class="form-control" id="inputType"
+                                    value="{{ $trash->name }}" readonly>
                             </div>
                             <div class="mb-3">
                                 <label for="qty" class="form-label">Quantity</label>
                                 <div class="row align-items-center">
                                     <div class="col-auto">
-                                        <input type="number" name="qty" class="form-control" id="qty">
+                                        <input type="number" name="qty"
+                                            class="form-control @error('qty')
+                                            is-invalid
+                                        @enderror"
+                                            id="qty" value="{{ old('qty') }}">
+                                        @error('qty')
+                                            <div id="descInfo" class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
                                     </div>
                                     <div class="col-auto">
-                                        <h5 class="m-0">Kg x Rp. 4000-,</h5>
+                                        <h5 class="m-0">Kg x Rp. {{ number_format($trash->price, 0, '', '.') }}-,</h5>
                                     </div>
                                 </div>
                             </div>
                             <div class="mb-3 d-flex">
                                 <button type="submit" class="btn-lg btn btn-success w-100">Deposite</button>
                             </div>
+                        </form>
                     </div>
-                    </form>
                 </div>
             </div>
         </div>

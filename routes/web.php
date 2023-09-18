@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\DepositeController;
 use App\Http\Controllers\TrashTypeController;
 use App\Models\Category;
 use App\Models\TrashType;
@@ -21,7 +22,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [ClientController::class, 'index'])->name('dashboard');
-Route::get('/deposit', [ClientController::class, 'depo'])->name('depo');
+Route::get('/deposit/detail', [DepositeController::class, 'detail'])->name('depo.detail');
+Route::get('/deposit/{trash}', [ClientController::class, 'depo'])->name('depo');
+Route::post('/deposit/{trash}', [DepositeController::class, 'store'])->name('depo.store');
+Route::get('/trash', [ClientController::class, 'list_trash'])->name('list.trash');
 
 // auth
 Route::get('/login', [AuthController::class, 'login'])->name('login');

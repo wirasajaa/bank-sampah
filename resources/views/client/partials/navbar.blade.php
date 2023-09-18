@@ -12,9 +12,8 @@
                         href="{{ route('dashboard', []) }}">Dashboard</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link @if (@$title == 'depo') {{ 'active' }} @endif"
-                        href="{{ route('depo', []) }}">Trash
-                        Deposit</a>
+                    <a class="nav-link @if (@$title == 'list_trash') {{ 'active' }} @endif"
+                        href="{{ route('list.trash') }}">Trash</a>
                 </li>
             </ul>
             <div class="d-flex items-center gap-2">

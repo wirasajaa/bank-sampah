@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('deposites', function (Blueprint $table) {
             $table->id();
+            $table->uuid('order_id');
             $table->integer('type_id');
             $table->integer('qty');
             $table->integer('total');

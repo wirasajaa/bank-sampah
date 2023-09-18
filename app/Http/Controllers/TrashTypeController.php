@@ -36,7 +36,7 @@ class TrashTypeController extends Controller
             ]);
             $file = $req->file('picture');
             $filename = date('YmdHi') . $file->getClientOriginalName();
-            $file->move(public_path('public/TrashImage'), $filename);
+            $file->storeAs('public/TrashImage', $filename);
             $validated['picture'] = $filename;
         }
         try {
@@ -70,7 +70,7 @@ class TrashTypeController extends Controller
     public function destroy(TrashType $type)
     {
         try {
-            Storage::delete(public_path('public/TrashImage' . $type->picture));
+            Storage::delete('public/TrashImage/' . $type->picture);
             $type->delete();
             return redirect()->route('admin.type')->with('success', 'Delete trash type data is success');
         } catch (\Exception $th) {

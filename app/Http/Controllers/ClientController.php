@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\TrashType;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ClientController extends Controller
 {
@@ -12,10 +13,19 @@ class ClientController extends Controller
         $title = 'dashboard';
         return view('client.index', compact('title'));
     }
-    public function depo()
+    public function depo(TrashType $trash)
     {
-        $title = 'depo';
-        $types = TrashType::get();
-        return view('client.depo_page', compact('title', 'types'));
+        $title = 'list_trash';
+        $trash->picture = Storage::url('public/TrashImage/' . $trash->picture);
+        return view('client.depo_page', compact('title', 'trash'));
+    }
+    public function list_trash()
+    {
+        $title = "list_trash";
+        $trash = TrashType::get();
+        foreach ($trash as $item) {
+            $item->picture = Storage::url('public/TrashImage/' . $item->picture);
+        }
+        return view('client.list_trash_page', compact('title', 'trash'));
     }
 }
