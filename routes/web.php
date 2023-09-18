@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [ClientController::class, 'index'])->name('dashboard');
+Route::get('/', [ClientController::class, 'list_trash'])->name('dashboard');
 Route::get('/deposit/detail', [DepositeController::class, 'detail'])->name('depo.detail');
 Route::get('/deposit/{trash}', [ClientController::class, 'depo'])->name('depo');
 Route::post('/deposit/{trash}', [DepositeController::class, 'store'])->name('depo.store');

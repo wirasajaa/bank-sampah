@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Deposite;
 use App\Models\TrashType;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Throwable;
 
@@ -35,6 +36,10 @@ class DepositeController extends Controller
         // $order = session()->has('order_id') ? Deposite::where('order_id', session('order_id'))->first() : null;
         $order = Deposite::where('order_id', 'de9a32a3-8b60-4cfc-9baf-a3c0fe5a524a')->first();
 
-        return view('client.detail_depo', compact('title', 'order'));
+        $trend = Deposite::select(DB::raw('SUM(qty) as jumlah'), 'name')->leftJoin('trash_types', 'deposites.type_id', '=', 'trash_types.id')->whereBetween(DB::raw('MONTH(deposites.created_at)'), [date('m'), date('m')])->whereExists(function ($query) use ($order) {
+            $query->select('id')->from('trash_types')->whereColumn('trash_types.id', 'deposites.type_id')->where('category_id', $order->type->category_id);
+        })->groupBy('type_id')->get()->toArray();
+
+        return view('client.detail_depo', compact('title', 'order', 'trend'));
     }
 }
